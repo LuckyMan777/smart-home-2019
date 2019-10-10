@@ -18,6 +18,7 @@ public class SmartHomeJSONProvider implements SmartHomeProvider {
         // считываем состояние дома из файла
         Gson gson = new Gson();
         String json = new String(Files.readAllBytes(Paths.get(filename)));
-        return gson.fromJson(json, SmartHome.class);
+        SmartHome smartHome = gson.fromJson(json, SmartHome.class);
+        return smartHome;
     }
 }

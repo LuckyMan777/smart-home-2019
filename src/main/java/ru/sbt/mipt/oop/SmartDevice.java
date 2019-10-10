@@ -2,9 +2,11 @@ package ru.sbt.mipt.oop;
 
 public class SmartDevice {
     protected final String id;
+    protected final String className;
 
     public SmartDevice(String id) {
         this.id = id;
+        className = this.getClass().getName();
     }
 
     public static void sendCommand(SensorCommand command) {

@@ -17,19 +17,22 @@ public class SmartHomeProcessing {
 
     public void smartHomeProcess() throws IOException {
         SmartHome smartHome = smartHomeProvider.provideSmartHome();
-        SensorEvent sensorEvent;
+        SensorEvent sensorEvent = sensorEventProvider.provideNextSensorEvent();
 
-        do {
-            sensorEvent = sensorEventProvider.provideNextSensorEvent();
+        while (sensorEvent != null) {
             processSensorEvent(sensorEvent, smartHome);
-        } while (sensorEvent != null);
+            sensorEvent = sensorEventProvider.provideNextSensorEvent();
+        }
     }
 
     private void processSensorEvent(SensorEvent sensorEvent, SmartHome smartHome) {
         System.out.println("Got event: " + sensorEvent);
         for (Room room : smartHome.getRooms()) {
             for (SmartDevice smartDevice : room.getSmartDevices()) {
-                smartDevice.updateState(sensorEvent, smartHome, room);
+                if (smartDevice.className == "ru.sbt.mipt.oop.Light")
+                    ((Light) smartDevice).updateState(sensorEvent, smartHome, room);
+                if (smartDevice.className == "ru.sbt.mipt.oop.Door")
+                    ((Door) smartDevice).updateState(sensorEvent, smartHome, room);
             }
         }
     }
