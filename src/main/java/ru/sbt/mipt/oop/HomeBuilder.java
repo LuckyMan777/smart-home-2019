@@ -13,17 +13,16 @@ import java.util.Arrays;
 public class HomeBuilder {
 
     public static void main(String[] args) throws IOException {
-        Room kitchen = new Room(Arrays.asList(new Light("1", false), new Light("2", true)),
-                Arrays.asList(new Door("1", false)),
+        Room kitchen = new Room(Arrays.asList(new Light("1", false), new Light("2", true),
+                new Door("1", false)),
                 "kitchen");
-        Room bathroom = new Room(Arrays.asList(new Light("3", true)),
-                Arrays.asList(new Door("2", false)),
+        Room bathroom = new Room(Arrays.asList(new Light("3", true), new Door("2", false)),
                 "bathroom");
-        Room bedroom = new Room(Arrays.asList(new Light("4", false), new Light("5", false), new Light("6", false)),
-                Arrays.asList(new Door("3", true)),
+        Room bedroom = new Room(Arrays.asList(new Light("4", false), new Light("5", false),
+                new Light("6", false), new Door("3", true)),
                 "bedroom");
-        Room hall = new Room(Arrays.asList(new Light("7", false), new Light("8", false), new Light("9", false)),
-                Arrays.asList(new Door("4", false)),
+        Room hall = new Room(Arrays.asList(new Light("7", false), new Light("8", false),
+                new Light("9", false), new Door("4", false)),
                 "hall");
         SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -34,5 +33,4 @@ public class HomeBuilder {
             writer.write(jsonString);
         }
     }
-
 }

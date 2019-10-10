@@ -27,7 +27,7 @@ public class Light extends SmartDevice {
                 setOn(true);
                 System.out.println("Light " + getId() + " in room " + room.getName() + " was turned on.");
             }
-            if (sensorEvent.getType() == LIGHT_OFF){
+            if (sensorEvent.getType() == LIGHT_OFF) {
                 setOn(false);
                 System.out.println("Light " + getId() + " in room " + room.getName() + " was turned off.");
             }

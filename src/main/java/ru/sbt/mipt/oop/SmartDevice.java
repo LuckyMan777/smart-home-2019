@@ -7,13 +7,14 @@ public class SmartDevice {
         this.id = id;
     }
 
+    public static void sendCommand(SensorCommand command) {
+        System.out.println("Pretend we're sending command " + command);
+    }
+
     public String getId() {
         return id;
     }
 
-    public void updateState(SensorEvent sensorEvent, SmartHome smartHome, Room room){ }
-
-    public static void sendCommand(SensorCommand command) {
-        System.out.println("Pretend we're sending command " + command);
+    public void updateState(SensorEvent sensorEvent, SmartHome smartHome, Room room) {
     }
 }
