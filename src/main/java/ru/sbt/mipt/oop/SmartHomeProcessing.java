@@ -29,10 +29,11 @@ public class SmartHomeProcessing {
         System.out.println("Got event: " + sensorEvent);
         for (Room room : smartHome.getRooms()) {
             for (SmartDevice smartDevice : room.getSmartDevices()) {
-                if (smartDevice.className == "ru.sbt.mipt.oop.Light")
+                /*if (smartDevice.className.equals("ru.sbt.mipt.oop.Light"))
                     ((Light) smartDevice).updateState(sensorEvent, smartHome, room);
-                if (smartDevice.className == "ru.sbt.mipt.oop.Door")
-                    ((Door) smartDevice).updateState(sensorEvent, smartHome, room);
+                if (smartDevice.className.equals("ru.sbt.mipt.oop.Door"))
+                    ((Door) smartDevice).updateState(sensorEvent, smartHome, room);*/
+                smartDevice.updateState(sensorEvent, smartHome, room);
             }
         }
     }
