@@ -3,22 +3,16 @@ package ru.sbt.mipt.oop;
 import java.util.Collection;
 
 public class Room {
-    private Collection<Light> lights;
-    private Collection<Door> doors;
+    private Collection<SmartDevice> smartDevices;
     private String name;
 
-    public Room(Collection<Light> lights, Collection<Door> doors, String name) {
-        this.lights = lights;
-        this.doors = doors;
+    public Room(Collection<SmartDevice> smartDevices, String name) {
+        this.smartDevices = smartDevices;
         this.name = name;
     }
 
-    public Collection<Light> getLights() {
-        return lights;
-    }
-
-    public Collection<Door> getDoors() {
-        return doors;
+    public Collection<SmartDevice> getSmartDevices() {
+        return smartDevices;
     }
 
     public String getName() {

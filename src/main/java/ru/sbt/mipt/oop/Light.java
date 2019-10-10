@@ -1,11 +1,13 @@
 package ru.sbt.mipt.oop;
 
-public class Light {
+import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
+import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
+
+public class Light extends SmartDevice {
     private boolean isOn;
-    private final String id;
 
     public Light(String id, boolean isOn) {
-        this.id = id;
+        super(id);
         this.isOn = isOn;
     }
 
@@ -13,11 +15,22 @@ public class Light {
         return isOn;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public void setOn(boolean on) {
         isOn = on;
+    }
+
+    @Override
+    public void updateState(SensorEvent sensorEvent, SmartHome smartHome, Room room) {
+        super.updateState(sensorEvent, smartHome, room);
+        if (getId().equals(sensorEvent.getObjectId())) {
+            if (sensorEvent.getType() == LIGHT_ON) {
+                setOn(true);
+                System.out.println("Light " + getId() + " in room " + room.getName() + " was turned on.");
+            }
+            if (sensorEvent.getType() == LIGHT_OFF){
+                setOn(false);
+                System.out.println("Light " + getId() + " in room " + room.getName() + " was turned off.");
+            }
+        }
     }
 }
