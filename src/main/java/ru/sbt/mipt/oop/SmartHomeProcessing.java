@@ -15,7 +15,7 @@ public class SmartHomeProcessing {
         System.out.println("Pretend we're sending command " + command);
     }
 
-    public void smartHomeProcess() throws IOException {
+    public void smartHomeProcess() throws IOException, ClassNotFoundException {
         SmartHome smartHome = smartHomeProvider.provideSmartHome();
         SensorEvent sensorEvent = sensorEventProvider.provideNextSensorEvent();
 

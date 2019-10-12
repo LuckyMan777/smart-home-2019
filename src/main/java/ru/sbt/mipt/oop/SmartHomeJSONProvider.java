@@ -15,7 +15,7 @@ public class SmartHomeJSONProvider implements SmartHomeProvider {
     }
 
     @Override
-    public SmartHome provideSmartHome() throws IOException {
+    public SmartHome provideSmartHome() throws IOException, ClassNotFoundException {
         // считываем состояние дома из файла
         Gson gson = new Gson();
         String json = new String(Files.readAllBytes(Paths.get(filename)));
@@ -27,19 +27,21 @@ public class SmartHomeJSONProvider implements SmartHomeProvider {
         for (JsonElement room: rooms){
             String roomName = room.getAsJsonObject().get("name").getAsString();
             JsonArray devices = room.getAsJsonObject().get("smartDevices").getAsJsonArray();
-            //System.out.println(roomName);
             ArrayList<SmartDevice> smartDevices = new ArrayList<>();
             for (JsonElement device: devices) {
-                String type = device.getAsJsonObject().get("className").getAsString().substring(16);
+                String type = device.getAsJsonObject().get("className").getAsString();
                 String id = device.getAsJsonObject().get("id").getAsString();
-                if (type.equals("Light")){
+                Class<?> clazz = Class.forName(type);
+                Object smartDevice = gson.fromJson(device.toString(), clazz);
+                smartDevices.add((SmartDevice) smartDevice);
+                /*if (type.equals("Light")){
                     boolean isOn = device.getAsJsonObject().get("isOn").getAsBoolean();
                     smartDevices.add(new Light(id, isOn));
                 }
                 if (type.equals("Door")){
                     boolean isOpen = device.getAsJsonObject().get("isOpen").getAsBoolean();
                     smartDevices.add(new Door(id, isOpen));
-                }
+                }*/
             }
             smartHome.addRoom(new Room(smartDevices, roomName));
         }
