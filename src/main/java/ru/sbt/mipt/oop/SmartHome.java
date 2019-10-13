@@ -4,21 +4,32 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome {
-    Collection<Room> rooms;
+    Collection<SmartDevice> smartDevices;
+    Collection<AdditionalSensorEventHandler> additionalSensorEventHandlers;
 
     public SmartHome() {
-        rooms = new ArrayList<>();
+        smartDevices = new ArrayList<>();
+        additionalSensorEventHandlers = new ArrayList<>();
     }
 
-    public SmartHome(Collection<Room> rooms) {
-        this.rooms = rooms;
+    public SmartHome(Collection<SmartDevice> smartDevices, Collection<AdditionalSensorEventHandler> additionalSensorEventHandlers) {
+        this.smartDevices = smartDevices;
+        this.additionalSensorEventHandlers = additionalSensorEventHandlers;
     }
 
-    public void addRoom(Room room) {
-        rooms.add(room);
+    public void addDevice(SmartDevice smartDevice) {
+        smartDevices.add(smartDevice);
     }
 
-    public Collection<Room> getRooms() {
-        return rooms;
+    public void addAdditionalSensorEventHandler(AdditionalSensorEventHandler additionalSensorEventHandler) {
+        additionalSensorEventHandlers.add(additionalSensorEventHandler);
+    }
+
+    public Collection<SmartDevice> getSmartDevices() {
+        return smartDevices;
+    }
+
+    public Collection<AdditionalSensorEventHandler> getAdditionalSensorEventHandlers() {
+        return additionalSensorEventHandlers;
     }
 }

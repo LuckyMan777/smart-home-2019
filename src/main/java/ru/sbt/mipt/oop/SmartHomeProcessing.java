@@ -27,14 +27,11 @@ public class SmartHomeProcessing {
 
     private void processSensorEvent(SensorEvent sensorEvent, SmartHome smartHome) {
         System.out.println("Got event: " + sensorEvent);
-        for (Room room : smartHome.getRooms()) {
-            for (SmartDevice smartDevice : room.getSmartDevices()) {
-                /*if (smartDevice.className.equals("ru.sbt.mipt.oop.Light"))
-                    ((Light) smartDevice).updateState(sensorEvent, smartHome, room);
-                if (smartDevice.className.equals("ru.sbt.mipt.oop.Door"))
-                    ((Door) smartDevice).updateState(sensorEvent, smartHome, room);*/
-                smartDevice.updateState(sensorEvent, smartHome, room);
-            }
+        for (SensorEventHandler smartDevice : smartHome.getSmartDevices()) {
+            smartDevice.handleSensorEvent(sensorEvent, smartHome);
+        }
+        for (AdditionalSensorEventHandler additionalSensorEventHandler : smartHome.getAdditionalSensorEventHandlers()) {
+            additionalSensorEventHandler.handleSensorEvent(sensorEvent, smartHome);
         }
     }
 }
