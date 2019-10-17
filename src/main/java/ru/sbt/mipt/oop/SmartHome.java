@@ -3,33 +3,29 @@ package ru.sbt.mipt.oop;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class SmartHome {
-    Collection<SmartDevice> smartDevices;
-    Collection<AdditionalSensorEventHandler> additionalSensorEventHandlers;
+public class SmartHome implements Actionable {
+    Collection<Actionable> rooms;
 
     public SmartHome() {
-        smartDevices = new ArrayList<>();
-        additionalSensorEventHandlers = new ArrayList<>();
+        rooms = new ArrayList<>();
     }
 
-    public SmartHome(Collection<SmartDevice> smartDevices, Collection<AdditionalSensorEventHandler> additionalSensorEventHandlers) {
-        this.smartDevices = smartDevices;
-        this.additionalSensorEventHandlers = additionalSensorEventHandlers;
+    public SmartHome(Collection<Actionable> smartDevices) {
+        this.rooms = smartDevices;
     }
 
-    public void addDevice(SmartDevice smartDevice) {
-        smartDevices.add(smartDevice);
+    public void addRoom(Room room) {
+        rooms.add(room);
     }
 
-    public void addAdditionalSensorEventHandler(AdditionalSensorEventHandler additionalSensorEventHandler) {
-        additionalSensorEventHandlers.add(additionalSensorEventHandler);
+    public Collection<Actionable> getRooms() {
+        return rooms;
     }
 
-    public Collection<SmartDevice> getSmartDevices() {
-        return smartDevices;
-    }
-
-    public Collection<AdditionalSensorEventHandler> getAdditionalSensorEventHandlers() {
-        return additionalSensorEventHandlers;
+    @Override
+    public void execute(Action action) {
+        for (Actionable room : rooms) {
+            room.execute(action);
+        }
     }
 }

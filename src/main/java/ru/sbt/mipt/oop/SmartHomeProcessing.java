@@ -1,22 +1,31 @@
 package ru.sbt.mipt.oop;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class SmartHomeProcessing {
-    private SmartHomeProvider smartHomeProvider;
+    private SmartHome smartHome;
     private SensorEventProvider sensorEventProvider;
+    private Collection<SensorEventProcessor> sensorEventProcessors;
 
-    public SmartHomeProcessing(SmartHomeProvider smartHomeProvider, SensorEventProvider sensorEventProvider) {
-        this.smartHomeProvider = smartHomeProvider;
+    public SmartHomeProcessing(SmartHome smartHome, SensorEventProvider sensorEventProvider) {
+        this.smartHome = smartHome;
         this.sensorEventProvider = sensorEventProvider;
+        sensorEventProcessors = new ArrayList<>();
+        initialAddSensorEventProcessors();
     }
 
     private static void sendCommand(SensorCommand command) {
         System.out.println("Pretend we're sending command " + command);
     }
 
-    public void smartHomeProcess() throws IOException, ClassNotFoundException {
-        SmartHome smartHome = smartHomeProvider.provideSmartHome();
+    private void initialAddSensorEventProcessors() {
+        sensorEventProcessors.add(new LightEventProcessor());
+        sensorEventProcessors.add(new DoorEventProcessor());
+        sensorEventProcessors.add(new HallClosingEventProcessor());
+    }
+
+    public void smartHomeProcess() {
         SensorEvent sensorEvent = sensorEventProvider.provideNextSensorEvent();
 
         while (sensorEvent != null) {
@@ -27,11 +36,9 @@ public class SmartHomeProcessing {
 
     private void processSensorEvent(SensorEvent sensorEvent, SmartHome smartHome) {
         System.out.println("Got event: " + sensorEvent);
-        for (SensorEventHandler smartDevice : smartHome.getSmartDevices()) {
-            smartDevice.handleSensorEvent(sensorEvent, smartHome);
-        }
-        for (AdditionalSensorEventHandler additionalSensorEventHandler : smartHome.getAdditionalSensorEventHandlers()) {
-            additionalSensorEventHandler.handleSensorEvent(sensorEvent, smartHome);
+        for (SensorEventProcessor sensorEventProcessor : sensorEventProcessors) {
+            //System.out.println("Current processing: " + sensorEventProcessor.toString());
+            sensorEventProcessor.processSensorEvent(sensorEvent, smartHome);
         }
     }
 }

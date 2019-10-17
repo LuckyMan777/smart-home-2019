@@ -3,11 +3,11 @@ package ru.sbt.mipt.oop;
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
-public class Light extends SmartDevice {
+public class Light extends SmartDevice implements Actionable {
     private boolean isOn;
 
-    public Light(String id, String roomName, boolean isOn) {
-        super(id, roomName);
+    public Light(String id, boolean isOn) {
+        super(id);
         this.isOn = isOn;
     }
 
@@ -19,33 +19,16 @@ public class Light extends SmartDevice {
         this.isOn = isOn;
     }
 
-/*
     @Override
-    public void updateState(SensorEvent sensorEvent, SmartHome smartHome, Room room) {
-        super.updateState(sensorEvent, smartHome, room);
-        if (getId().equals(sensorEvent.getObjectId())) {
-            if (sensorEvent.getType() == LIGHT_ON) {
+    public void execute(Action action) {
+        if (getId().equals(action.getObjectId())) {
+            if (action.getCommand() == LIGHT_ON) {
                 setOn(true);
-                System.out.println("Light " + getId() + " in room " + room.getName() + " was turned on.");
+                System.out.println("Light " + getId() + " was turned on.");  // " in room " + roomName + " was turned on.");
             }
-            if (sensorEvent.getType() == LIGHT_OFF) {
+            if (action.getCommand() == LIGHT_OFF) {
                 setOn(false);
-                System.out.println("Light " + getId() + " in room " + room.getName() + " was turned off.");
-            }
-        }
-    }
-*/
-
-    @Override
-    public void handleSensorEvent(SensorEvent sensorEvent, SmartHome smartHome) {
-        if (getId().equals(sensorEvent.getObjectId())) {
-            if (sensorEvent.getType() == LIGHT_ON) {
-                setOn(true);
-                System.out.println("Light " + getId() + " in room " + roomName + " was turned on.");
-            }
-            if (sensorEvent.getType() == LIGHT_OFF) {
-                setOn(false);
-                System.out.println("Light " + getId() + " in room " + roomName + " was turned off.");
+                System.out.println("Light " + getId() + " was turned off.");  // " in room " + roomName + " was turned off.");
             }
         }
     }

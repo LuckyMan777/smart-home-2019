@@ -2,20 +2,31 @@ package ru.sbt.mipt.oop;
 
 import java.util.Collection;
 
-public class Room {
-    private Collection<SmartDevice> smartDevices;
+public class Room implements Actionable {
+    private Collection<Actionable> smartDevices;
     private String name;
 
-    public Room(Collection<SmartDevice> smartDevices, String name) {
+    public Room(Collection<Actionable> smartDevices, String name) {
         this.smartDevices = smartDevices;
         this.name = name;
     }
 
-    public Collection<SmartDevice> getSmartDevices() {
+    public Collection<Actionable> getSmartDevices() {
         return smartDevices;
+    }
+
+    public void addSmartDevice(Actionable smartDevice) {
+        smartDevices.add(smartDevice);
     }
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public void execute(Action action) {
+        for (Actionable smartDevice : smartDevices) {
+            smartDevice.execute(action);
+        }
     }
 }
