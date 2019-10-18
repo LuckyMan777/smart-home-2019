@@ -3,19 +3,19 @@ package ru.sbt.mipt.oop;
 import java.util.Collection;
 
 public class Room implements Actionable {
-    private Collection<Actionable> smartDevices;
+    private Collection<SmartDevice> smartDevices;
     private String name;
 
-    public Room(Collection<Actionable> smartDevices, String name) {
+    public Room(Collection<SmartDevice> smartDevices, String name) {
         this.smartDevices = smartDevices;
         this.name = name;
     }
 
-    public Collection<Actionable> getSmartDevices() {
+    public Collection<SmartDevice> getSmartDevices() {
         return smartDevices;
     }
 
-    public void addSmartDevice(Actionable smartDevice) {
+    public void addSmartDevice(SmartDevice smartDevice) {
         smartDevices.add(smartDevice);
     }
 

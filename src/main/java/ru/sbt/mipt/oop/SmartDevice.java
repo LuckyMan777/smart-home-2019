@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop;
 
-public abstract class SmartDevice {
+public abstract class SmartDevice implements Actionable {
     protected final String id;
     protected final String className;
 
