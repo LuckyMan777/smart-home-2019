@@ -11,23 +11,36 @@ public class HallClosingEventProcessor implements SensorEventProcessor {
     @Override
     public void processSensorEvent(SensorEvent sensorEvent, SmartHome smartHome) {
         if (checkSensorEventIsCorrect(sensorEvent, smartHome)) {
-            /*for (SmartDevice smartDevice : smartHome.getRooms()) {
-                if ((smartDevice.roomName.equals("hall")) && (smartDevice instanceof Light)) {
-                    ((Light) smartDevice).setOn(false);
-                    SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, smartDevice.getId());
-                    sendCommand(command);
+            for (Room room : smartHome.getRooms()) {
+                if (room.getName().equals("hall")) {
+                    for (SmartDevice smartDevice : room.getSmartDevices()) {
+                        smartDevice.execute(new Action() {
+                            @Override
+                            void execute(Object object) {
+                                if (object instanceof Light) {
+                                    Light light = (Light) object;
+                                    light.setOn(false);
+                                    SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, smartDevice.getId());
+                                    sendCommand(command);
+                                }
+                            }
+                        });
+                    }
                 }
-            }*/
+            }
         }
     }
 
     private boolean checkSensorEventIsCorrect(SensorEvent sensorEvent, SmartHome smartHome) {
         if (sensorEvent.getType() == SensorEventType.DOOR_CLOSED) {
-            /*for (SmartDevice smartDevice : smartHome.getRooms()) {
-                if ((smartDevice instanceof Door) && smartDevice.id.equals(sensorEvent.getObjectId())
-                        && smartDevice.roomName.equals("hall"))
-                    return true;
-            }*/
+            for (Room room : smartHome.getRooms()) {
+                if (room.getName().equals("hall")) {
+                    for (SmartDevice smartDevice : room.getSmartDevices()) {
+                        if ((smartDevice instanceof Door) && smartDevice.id.equals(sensorEvent.getObjectId()))
+                            return true;
+                    }
+                }
+            }
         }
         return false;
     }

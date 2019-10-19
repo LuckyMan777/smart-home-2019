@@ -50,7 +50,7 @@ public class SmartHomeJSONProvider implements SmartHomeProvider {
                 String type = device.getAsJsonObject().get("className").getAsString();
                 Class<?> clazz = Class.forName(type);
                 Object smartDevice = gson.fromJson(device.toString(), clazz);
-                r.addSmartDevice((Actionable) smartDevice);
+                r.addSmartDevice((SmartDevice) smartDevice);
             }
             smartHome.addRoom(r);
         }

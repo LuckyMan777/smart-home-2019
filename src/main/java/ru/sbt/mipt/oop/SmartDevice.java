@@ -12,4 +12,9 @@ public abstract class SmartDevice implements Actionable {
     public String getId() {
         return id;
     }
+
+    @Override
+    public void execute(Action action) {
+        action.execute(this);
+    }
 }
