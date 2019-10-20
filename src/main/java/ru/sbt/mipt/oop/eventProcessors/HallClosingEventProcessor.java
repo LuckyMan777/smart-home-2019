@@ -1,4 +1,9 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.eventProcessors;
+
+import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.smartDevices.Door;
+import ru.sbt.mipt.oop.smartDevices.Light;
+import ru.sbt.mipt.oop.smartDevices.SmartDevice;
 
 // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
 // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
@@ -16,7 +21,7 @@ public class HallClosingEventProcessor implements SensorEventProcessor {
                     for (SmartDevice smartDevice : room.getSmartDevices()) {
                         smartDevice.execute(new Action() {
                             @Override
-                            void execute(Object object) {
+                            public void execute(Object object) {
                                 if (object instanceof Light) {
                                     Light light = (Light) object;
                                     light.setOn(false);
@@ -36,7 +41,7 @@ public class HallClosingEventProcessor implements SensorEventProcessor {
             for (Room room : smartHome.getRooms()) {
                 if (room.getName().equals("hall")) {
                     for (SmartDevice smartDevice : room.getSmartDevices()) {
-                        if ((smartDevice instanceof Door) && smartDevice.id.equals(sensorEvent.getObjectId()))
+                        if ((smartDevice instanceof Door) && smartDevice.getId().equals(sensorEvent.getObjectId()))
                             return true;
                     }
                 }

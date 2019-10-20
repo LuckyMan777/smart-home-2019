@@ -1,4 +1,6 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.smartDevices;
+
+import ru.sbt.mipt.oop.Actionable;
 
 public class Light extends SmartDevice implements Actionable {
     private boolean isOn;

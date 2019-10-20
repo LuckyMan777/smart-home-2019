@@ -1,5 +1,11 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.eventProcessors.DoorEventProcessor;
+import ru.sbt.mipt.oop.eventProcessors.HallClosingEventProcessor;
+import ru.sbt.mipt.oop.eventProcessors.LightEventProcessor;
+import ru.sbt.mipt.oop.eventProcessors.SensorEventProcessor;
+import ru.sbt.mipt.oop.sensorEventPoviders.SensorEventProvider;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -29,12 +35,12 @@ public class SmartHomeProcessing {
         SensorEvent sensorEvent = sensorEventProvider.provideNextSensorEvent();
 
         while (sensorEvent != null) {
-            processSensorEvent(sensorEvent, smartHome);
+            processSensorEvent(sensorEvent);
             sensorEvent = sensorEventProvider.provideNextSensorEvent();
         }
     }
 
-    private void processSensorEvent(SensorEvent sensorEvent, SmartHome smartHome) {
+    public void processSensorEvent(SensorEvent sensorEvent) {
         System.out.println("Got event: " + sensorEvent);
         for (SensorEventProcessor sensorEventProcessor : sensorEventProcessors) {
             //System.out.println("Current processing: " + sensorEventProcessor.toString());

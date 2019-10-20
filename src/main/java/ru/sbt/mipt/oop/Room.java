@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.smartDevices.SmartDevice;
+
 import java.util.Collection;
 
 public class Room implements Actionable {
