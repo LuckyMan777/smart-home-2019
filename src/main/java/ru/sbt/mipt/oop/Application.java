@@ -1,8 +1,8 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.sensorEventPoviders.SensorEventRandomProvider;
-import ru.sbt.mipt.oop.smartHomeProviders.SmartHomeJSONProvider;
-import ru.sbt.mipt.oop.smartHomeProviders.SmartHomeProvider;
+import ru.sbt.mipt.oop.eventproviders.SensorEventRandomProvider;
+import ru.sbt.mipt.oop.homeproviders.SmartHomeJSONProvider;
+import ru.sbt.mipt.oop.homeproviders.SmartHomeProvider;
 
 import java.io.IOException;
 

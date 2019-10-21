@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.smartDevices;
+package ru.sbt.mipt.oop.devices;
 
 import ru.sbt.mipt.oop.Actionable;
 

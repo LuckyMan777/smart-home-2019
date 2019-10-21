@@ -1,10 +1,10 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.eventProcessors.DoorEventProcessor;
-import ru.sbt.mipt.oop.eventProcessors.HallClosingEventProcessor;
-import ru.sbt.mipt.oop.eventProcessors.LightEventProcessor;
-import ru.sbt.mipt.oop.eventProcessors.SensorEventProcessor;
-import ru.sbt.mipt.oop.sensorEventPoviders.SensorEventProvider;
+import ru.sbt.mipt.oop.eventprocessors.DoorEventProcessor;
+import ru.sbt.mipt.oop.eventprocessors.HallClosingEventProcessor;
+import ru.sbt.mipt.oop.eventprocessors.LightEventProcessor;
+import ru.sbt.mipt.oop.eventprocessors.SensorEventProcessor;
+import ru.sbt.mipt.oop.eventproviders.SensorEventProvider;
 
 import java.util.ArrayList;
 import java.util.Collection;

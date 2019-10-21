@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.smartHomeProviders;
+package ru.sbt.mipt.oop.homeproviders;
 
 import ru.sbt.mipt.oop.SmartHome;
 

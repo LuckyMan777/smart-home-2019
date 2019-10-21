@@ -3,13 +3,11 @@ package ru.sbt.mipt.oop.tests;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import ru.sbt.mipt.oop.*;
-import ru.sbt.mipt.oop.smartDevices.Door;
-import ru.sbt.mipt.oop.smartDevices.Light;
+import ru.sbt.mipt.oop.devices.Door;
+import ru.sbt.mipt.oop.devices.Light;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class DoorEventProcessorTest {
 

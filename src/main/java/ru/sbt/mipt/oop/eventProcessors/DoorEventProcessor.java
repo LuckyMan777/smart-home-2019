@@ -1,7 +1,7 @@
-package ru.sbt.mipt.oop.eventProcessors;
+package ru.sbt.mipt.oop.eventprocessors;
 
 import ru.sbt.mipt.oop.*;
-import ru.sbt.mipt.oop.smartDevices.Door;
+import ru.sbt.mipt.oop.devices.Door;
 
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;

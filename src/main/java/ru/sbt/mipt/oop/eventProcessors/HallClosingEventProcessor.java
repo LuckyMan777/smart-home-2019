@@ -1,9 +1,9 @@
-package ru.sbt.mipt.oop.eventProcessors;
+package ru.sbt.mipt.oop.eventprocessors;
 
 import ru.sbt.mipt.oop.*;
-import ru.sbt.mipt.oop.smartDevices.Door;
-import ru.sbt.mipt.oop.smartDevices.Light;
-import ru.sbt.mipt.oop.smartDevices.SmartDevice;
+import ru.sbt.mipt.oop.devices.Door;
+import ru.sbt.mipt.oop.devices.Light;
+import ru.sbt.mipt.oop.devices.SmartDevice;
 
 // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
 // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)

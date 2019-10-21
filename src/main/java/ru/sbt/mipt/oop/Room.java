@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.smartDevices.SmartDevice;
+import ru.sbt.mipt.oop.devices.SmartDevice;
 
 import java.util.Collection;
 

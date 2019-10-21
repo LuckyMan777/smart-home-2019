@@ -1,11 +1,11 @@
-package ru.sbt.mipt.oop.smartHomeProviders;
+package ru.sbt.mipt.oop.homeproviders;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import ru.sbt.mipt.oop.Room;
-import ru.sbt.mipt.oop.smartDevices.SmartDevice;
+import ru.sbt.mipt.oop.devices.SmartDevice;
 import ru.sbt.mipt.oop.SmartHome;
 
 import java.io.IOException;
