@@ -5,8 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import ru.sbt.mipt.oop.Room;
-import ru.sbt.mipt.oop.devices.SmartDevice;
 import ru.sbt.mipt.oop.SmartHome;
+import ru.sbt.mipt.oop.devices.SmartDevice;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,7 +23,7 @@ public class SmartHomeJSONProvider implements SmartHomeProvider {
     @Override
     public SmartHome provideSmartHome() {
         // считываем состояние дома из файла
-        String json = null;
+        String json;
         try {
             json = new String(Files.readAllBytes(Paths.get(filename)));
             return parseSmartHomeFromJson(json);

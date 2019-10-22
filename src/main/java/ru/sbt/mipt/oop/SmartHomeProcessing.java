@@ -1,12 +1,8 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.eventprocessors.DoorEventProcessor;
-import ru.sbt.mipt.oop.eventprocessors.HallClosingEventProcessor;
-import ru.sbt.mipt.oop.eventprocessors.LightEventProcessor;
 import ru.sbt.mipt.oop.eventprocessors.SensorEventProcessor;
 import ru.sbt.mipt.oop.eventproviders.SensorEventProvider;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHomeProcessing {
@@ -17,18 +13,11 @@ public class SmartHomeProcessing {
     public SmartHomeProcessing(SmartHome smartHome, SensorEventProvider sensorEventProvider) {
         this.smartHome = smartHome;
         this.sensorEventProvider = sensorEventProvider;
-        sensorEventProcessors = new ArrayList<>();
-        initialAddSensorEventProcessors();
+        sensorEventProcessors = Configs.getEventProcessors();
     }
 
     private static void sendCommand(SensorCommand command) {
         System.out.println("Pretend we're sending command " + command);
-    }
-
-    private void initialAddSensorEventProcessors() {
-        sensorEventProcessors.add(new LightEventProcessor());
-        sensorEventProcessors.add(new DoorEventProcessor());
-        sensorEventProcessors.add(new HallClosingEventProcessor());
     }
 
     public void smartHomeProcess() {
@@ -43,7 +32,6 @@ public class SmartHomeProcessing {
     public void processSensorEvent(SensorEvent sensorEvent) {
         System.out.println("Got event: " + sensorEvent);
         for (SensorEventProcessor sensorEventProcessor : sensorEventProcessors) {
-            //System.out.println("Current processing: " + sensorEventProcessor.toString());
             sensorEventProcessor.processSensorEvent(sensorEvent, smartHome);
         }
     }
