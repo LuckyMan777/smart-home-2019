@@ -16,10 +16,6 @@ public class SmartHomeProcessing {
         sensorEventProcessors = Configs.getEventProcessors();
     }
 
-    private static void sendCommand(SensorCommand command) {
-        System.out.println("Pretend we're sending command " + command);
-    }
-
     public void smartHomeProcess() {
         SensorEvent sensorEvent = sensorEventProvider.provideNextSensorEvent();
 
