@@ -4,28 +4,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome implements Actionable {
-    Collection<Room> rooms;
+    Collection<Actionable> actionables;
 
-    public SmartHome() {
-        rooms = new ArrayList<>();
+    public SmartHome() { actionables = new ArrayList<>();
     }
 
-    public SmartHome(Collection<Room> rooms) {
-        this.rooms = rooms;
+    public SmartHome(Collection<Actionable> actiobables) {
+        this.actionables = actiobables;
     }
 
-    public void addRoom(Room room) {
-        rooms.add(room);
+    public void addActionable(Actionable actionable) {
+        actionables.add(actionable);
     }
 
-    public Collection<Room> getRooms() {
-        return rooms;
+    public Collection<Actionable> getActionables() {
+        return actionables;
     }
 
     @Override
     public void execute(Action action) {
-        for (Actionable room : rooms) {
-            room.execute(action);
+        action.execute(this);
+        for (Actionable actionable : actionables) {
+            actionable.execute(action);
         }
     }
 }

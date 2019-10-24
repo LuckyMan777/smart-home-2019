@@ -6,10 +6,10 @@ import ru.sbt.mipt.oop.devices.Door;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 
-public class DoorEventProcessor implements SensorEventProcessor {
+public class DoorEventProcessor implements EventProcessor {
     @Override
     public void processSensorEvent(SensorEvent sensorEvent, SmartHome smartHome) {
-        if (sensorEvent.getType() == DOOR_CLOSED || sensorEvent.getType() == DOOR_OPEN)
+        if (checkSensorEventIsCorrect(sensorEvent, smartHome))
             smartHome.execute(new Action() {
                 @Override
                 public void execute(Object object) {
@@ -29,4 +29,10 @@ public class DoorEventProcessor implements SensorEventProcessor {
                 }
             });
     }
+
+    @Override
+    public boolean checkSensorEventIsCorrect(SensorEvent sensorEvent, SmartHome smartHome) {
+        return sensorEvent.getType() == DOOR_CLOSED || sensorEvent.getType() == DOOR_OPEN;
+    }
+
 }

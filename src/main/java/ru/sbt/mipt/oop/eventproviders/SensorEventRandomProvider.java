@@ -11,6 +11,8 @@ public class SensorEventRandomProvider implements SensorEventProvider {
         if (Math.random() < 0.1) return null; // null means end of event stream
         int countEventTypes = SensorEventType.values().length;
         SensorEventType sensorEventType = SensorEventType.values()[(int) (countEventTypes * Math.random())];
+        if ((sensorEventType == SensorEventType.ALARM_ACTIVATE) || (sensorEventType == SensorEventType.ALARM_DEACTIVATE))
+            sensorEventType.setCode("" + ((int) (10 * Math.random())));
         String objectId = "" + ((int) (10 * Math.random()));
         return new SensorEvent(sensorEventType, objectId);
     }
