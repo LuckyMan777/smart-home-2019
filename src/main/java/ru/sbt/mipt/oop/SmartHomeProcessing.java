@@ -16,10 +16,6 @@ public class SmartHomeProcessing {
         eventProcessors = Configs.getEventProcessors();
     }
 
-    private static void sendCommand(SensorCommand command) {
-        System.out.println("Pretend we're sending command " + command);
-    }
-
     public void smartHomeProcess() {
         SensorEventType sensorEventType = SensorEventType.ALARM_ACTIVATE;
         sensorEventType.setCode("5");
