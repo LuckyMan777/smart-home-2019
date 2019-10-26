@@ -3,9 +3,8 @@ package ru.sbt.mipt.oop.tests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.devices.Signalization;
-import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SignalizationTest {
     Signalization signalization;
