@@ -5,8 +5,8 @@ import ru.sbt.mipt.oop.Actionable;
 public class Light extends SmartDevice implements Actionable {
     private boolean isOn;
 
-    public Light(String id, boolean isOn) {
-        super(id);
+    public Light(String id, String roomName, boolean isOn) {
+        super(id, roomName);
         this.isOn = isOn;
     }
 

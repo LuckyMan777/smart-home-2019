@@ -17,7 +17,7 @@ public class SmartHomeProcessing {
     }
 
     public void smartHomeProcess() {
-        SensorEvent sensorEvent = sensorEventProvider.provideNextSensorEvent();
+        SensorEvent sensorEvent = new SensorEvent(SensorEventType.DOOR_CLOSED, "4");//sensorEventProvider.provideNextSensorEvent();
 
         while (sensorEvent != null) {
             processSensorEvent(sensorEvent);

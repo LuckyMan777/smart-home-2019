@@ -16,11 +16,15 @@ class DoorEventProcessorTest {
 
     @BeforeEach
     void setUp() {
-        Room bedroom = new Room(Arrays.asList(new Light("1", false), new Light("2", true),
-                new Door("1", true), new Door("2", false)),
+        Room bedroom = new Room(Arrays.asList(new Light("1", "bedroom", false),
+                new Light("2", "bedroom", true),
+                new Door("1", "bedroom", true),
+                new Door("2", "bedroom", false)),
                 "bedroom");
-        Room hall = new Room(Arrays.asList(new Light("3", false), new Light("4", true),
-                new Door("3", false), new Door("4", true)),
+        Room hall = new Room(Arrays.asList(new Light("3", "hall", false),
+                new Light("4", "hall", true),
+                new Door("3", "hall", false),
+                new Door("4", "hall", true)),
                 "hall");
 
         smartHome = new SmartHome(Arrays.asList(bedroom, hall));

@@ -1,5 +1,5 @@
 package ru.sbt.mipt.oop;
 
-public abstract class Action {
-    public abstract void execute(Object object);
+public interface Action {
+    void execute(Object object);
 }

@@ -20,16 +20,22 @@ public class HomeBuilder {
     }
 
     private static SmartHome getSmartHome() {
-        Room kitchen = new Room(Arrays.asList(new Light("1", false), new Light("2", true),
-                new Door("1", false)),
+        Room kitchen = new Room(Arrays.asList(new Light("1", "kitchen", false),
+                new Light("2", "kitchen", true),
+                new Door("1", "kitchen", false)),
                 "kitchen");
-        Room bathroom = new Room(Arrays.asList(new Light("3", true), new Door("2", false)),
+        Room bathroom = new Room(Arrays.asList(new Light("3", "bathroom", true),
+                new Door("2", "bathroom", false)),
                 "bathroom");
-        Room bedroom = new Room(Arrays.asList(new Light("4", false), new Light("5", false),
-                new Light("6", false), new Door("3", true)),
+        Room bedroom = new Room(Arrays.asList(new Light("4", "bedroom", false),
+                new Light("5", "bedroom", false),
+                new Light("6", "bedroom", false),
+                new Door("3", "bedroom", true)),
                 "bedroom");
-        Room hall = new Room(Arrays.asList(new Light("7", false), new Light("8", false),
-                new Light("9", false), new Door("4", false)),
+        Room hall = new Room(Arrays.asList(new Light("7", "hall", false),
+                new Light("8", "hall", false),
+                new Light("9", "hall", false),
+                new Door("4", "hall", false)),
                 "hall");
 
         return new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
