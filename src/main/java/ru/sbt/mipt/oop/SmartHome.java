@@ -17,15 +17,11 @@ public class SmartHome implements Actionable {
         actionables.add(actionable);
     }
 
-    public Collection<Actionable> getActionables() {
-        return actionables;
-    }
-
     @Override
     public void execute(Action action) {
         action.execute(this);
-        for (Actionable actionable : actionables) {
-            actionable.execute(action);
+        for (Actionable room : rooms) {
+            room.execute(action);
         }
     }
 }

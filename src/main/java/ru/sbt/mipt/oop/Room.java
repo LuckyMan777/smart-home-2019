@@ -13,10 +13,6 @@ public class Room implements Actionable {
         this.name = name;
     }
 
-    public Collection<SmartDevice> getSmartDevices() {
-        return smartDevices;
-    }
-
     public void addSmartDevice(SmartDevice smartDevice) {
         smartDevices.add(smartDevice);
     }

@@ -11,32 +11,24 @@ import java.util.List;
 
 class HallClosingEventProcessorTest {
     private SmartHome smartHome;
-    private final List<Integer> lightInHallNums = Arrays.asList(4, 5, 6);
-    private final List<Integer> lightNotInHallNums = Arrays.asList(1, 2, 3);
+    private final List<Integer> lightNums = Arrays.asList(1, 2, 3, 4, 5, 6);
     private final int hallDoorNum = 2;
 
     @BeforeEach
     void setUp() {
         //Every light is ON
-        Room bedroom = new Room(Arrays.asList(new Light("1", true), new Light("2", true),
-                new Light("3", true), new Door("1", true)),
+        Room bedroom = new Room(Arrays.asList(new Light("1", "bedroom", true),
+                new Light("2", "bedroom", true),
+                new Light("3", "bedroom", true),
+                new Door("1", "bedroom", true)),
                 "bedroom");
-        Room hall = new Room(Arrays.asList(new Light("4", true), new Light("5", true),
-                new Light("6", true), new Door("2", true)),
+        Room hall = new Room(Arrays.asList(new Light("4", "hall", true),
+                new Light("5", "hall", true),
+                new Light("6", "hall", true),
+                new Door("2", "hall", true)),
                 "hall");
 
         smartHome = new SmartHome(Arrays.asList(bedroom, hall));
-    }
-
-    @Test
-    void checkLightsOnAfterHallClosingEventProcess() {
-        SmartHomeProcessing smartHomeProcessing = new SmartHomeProcessing(smartHome, null);
-        smartHomeProcessing.processSensorEvent(
-                new SensorEvent(SensorEventType.DOOR_CLOSED, Integer.toString(hallDoorNum)));
-
-        for (Integer lightNotInHallNum : lightNotInHallNums) {
-            TestUtils.checkLightOnOff(smartHome, Integer.toString(lightNotInHallNum), true);
-        }
     }
 
     @Test
@@ -45,7 +37,7 @@ class HallClosingEventProcessorTest {
         smartHomeProcessing.processSensorEvent(
                 new SensorEvent(SensorEventType.DOOR_CLOSED, Integer.toString(hallDoorNum)));
 
-        for (Integer lightNotInHallNum : lightInHallNums) {
+        for (Integer lightNotInHallNum : lightNums) {
             TestUtils.checkLightOnOff(smartHome, Integer.toString(lightNotInHallNum), false);
         }
     }

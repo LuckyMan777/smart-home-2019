@@ -15,11 +15,15 @@ class LightEventProcessorTest {
 
     @BeforeEach
     void setUp() {
-        Room bedroom = new Room(Arrays.asList(new Light("1", false), new Light("2", true),
-                new Light("3", false), new Door("1", true)),
+        Room bedroom = new Room(Arrays.asList(new Light("1", "bedroom", false),
+                new Light("2", "bedroom", true),
+                new Light("3", "bedroom", false),
+                new Door("1", "bedroom", true)),
                 "bedroom");
-        Room hall = new Room(Arrays.asList(new Light("4", false), new Light("5", true),
-                new Light("6", false), new Door("2", false)),
+        Room hall = new Room(Arrays.asList(new Light("4", "hall", false),
+                new Light("5", "hall", true),
+                new Light("6", "hall", false),
+                new Door("2", "hall", false)),
                 "hall");
 
         smartHome = new SmartHome(Arrays.asList(bedroom, hall));

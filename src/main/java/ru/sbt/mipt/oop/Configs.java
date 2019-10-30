@@ -1,6 +1,10 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.eventprocessors.*;
+import ru.sbt.mipt.oop.commandsenders.SimpleCommandSender;
+import ru.sbt.mipt.oop.eventprocessors.DoorEventProcessor;
+import ru.sbt.mipt.oop.eventprocessors.HallClosingEventProcessor;
+import ru.sbt.mipt.oop.eventprocessors.LightEventProcessor;
+import ru.sbt.mipt.oop.eventprocessors.SensorEventProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +14,10 @@ public class Configs {
         List<EventProcessor> sensorEventProcessors = new ArrayList<>();
         sensorEventProcessors.add(new SignalizationDecorator(new LightEventProcessor()));
         sensorEventProcessors.add(new SignalizationDecorator(new DoorEventProcessor()));
-        sensorEventProcessors.add(new SignalizationDecorator(new HallClosingEventProcessor()));
+        sensorEventProcessors.add(new SignalizationDecorator(new HallClosingEventProcessor(new SimpleCommandSender())));
         sensorEventProcessors.add(new SignalizationDecorator(new SignalizationActivatedEventProcessor()));
         sensorEventProcessors.add(new SignalizationDecorator(new SignalizationDeactivatedEventProcessor()));
+		
         return sensorEventProcessors;
     }
 }
