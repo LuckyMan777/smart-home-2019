@@ -14,6 +14,8 @@ public abstract class State {
     }
 
     public abstract void onActivate(String password);
+
     public abstract void onDeactivate(String password);
+
     public abstract void onAlarm();
 }

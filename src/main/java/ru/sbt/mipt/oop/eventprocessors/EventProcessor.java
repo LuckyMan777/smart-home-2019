@@ -5,5 +5,6 @@ import ru.sbt.mipt.oop.SmartHome;
 
 public interface EventProcessor {
     void processSensorEvent(SensorEvent sensorEvent, SmartHome smartHome);
+
     boolean checkSensorEventIsCorrect(SensorEvent sensorEvent, SmartHome smartHome);
 }

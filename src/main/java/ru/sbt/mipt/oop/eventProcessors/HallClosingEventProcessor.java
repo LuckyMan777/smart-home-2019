@@ -4,7 +4,6 @@ import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.commandsenders.CommandSender;
 import ru.sbt.mipt.oop.devices.Door;
 import ru.sbt.mipt.oop.devices.Light;
-import ru.sbt.mipt.oop.devices.SmartDevice;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -37,7 +36,8 @@ public class HallClosingEventProcessor implements EventProcessor {
         }
     }
 
-    private boolean checkSensorEventIsCorrect(SensorEvent sensorEvent, SmartHome smartHome) {
+    @Override
+    public boolean checkSensorEventIsCorrect(SensorEvent sensorEvent, SmartHome smartHome) {
         AtomicBoolean correct = new AtomicBoolean(false);
         if (sensorEvent.getType() == SensorEventType.DOOR_CLOSED) {
             smartHome.execute(object -> {

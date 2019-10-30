@@ -1,11 +1,10 @@
 package ru.sbt.mipt.oop.eventprocessors;
 
-import ru.sbt.mipt.oop.Action;
-import ru.sbt.mipt.oop.Actionable;
 import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
-import ru.sbt.mipt.oop.devices.Light;
 import ru.sbt.mipt.oop.devices.Signalization;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static ru.sbt.mipt.oop.SensorEventType.*;
 
@@ -21,20 +20,16 @@ public class SignalizationDecorator implements EventProcessor {
         if (basicEventProcessor.checkSensorEventIsCorrect(sensorEvent, smartHome)) {
             if (checkSignalizationIsAlarmed(sensorEvent, smartHome)) {
                 System.out.println("Sending sms");
-            }
-            else if (checkSignalizationIsDeactivated(sensorEvent, smartHome) ||
+            } else if (checkSignalizationIsDeactivated(sensorEvent, smartHome) ||
                     (basicEventProcessor instanceof SignalizationDeactivatedEventProcessor))
                 basicEventProcessor.processSensorEvent(sensorEvent, smartHome);
             if (sensorEvent.getType() == DOOR_CLOSED || sensorEvent.getType() == DOOR_OPEN ||
                     sensorEvent.getType() == LIGHT_OFF || sensorEvent.getType() == LIGHT_ON) {
                 if (checkSignalizationIsActivated(sensorEvent, smartHome)) {
-                    smartHome.execute(new Action() {
-                        @Override
-                        public void execute(Object object) {
-                            if (object instanceof Signalization) {
-                                Signalization signalization = (Signalization) object;
-                                signalization.toAlarm();
-                            }
+                    smartHome.execute(object -> {
+                        if (object instanceof Signalization) {
+                            Signalization signalization = (Signalization) object;
+                            signalization.toAlarm();
                         }
                     });
                     System.out.println("Sending sms");
@@ -49,29 +44,32 @@ public class SignalizationDecorator implements EventProcessor {
     }
 
     private boolean checkSignalizationIsActivated(SensorEvent sensorEvent, SmartHome smartHome) {
-        for (Actionable actionable : smartHome.getActionables()) {
-            if (actionable instanceof Signalization) {
-                return ((Signalization) actionable).isActivated();
+        AtomicBoolean isActivated = new AtomicBoolean(false);
+        smartHome.execute(object -> {
+            if (object instanceof Signalization) {
+                isActivated.set(((Signalization) object).isActivated());
             }
-        }
-        return false;
+        });
+        return isActivated.get();
     }
 
     private boolean checkSignalizationIsDeactivated(SensorEvent sensorEvent, SmartHome smartHome) {
-        for (Actionable actionable : smartHome.getActionables()) {
-            if (actionable instanceof Signalization) {
-                return ((Signalization) actionable).isDeactivated();
+        AtomicBoolean isDeactivated = new AtomicBoolean(false);
+        smartHome.execute(object -> {
+            if (object instanceof Signalization) {
+                isDeactivated.set(((Signalization) object).isDeactivated());
             }
-        }
-        return false;
+        });
+        return isDeactivated.get();
     }
 
     private boolean checkSignalizationIsAlarmed(SensorEvent sensorEvent, SmartHome smartHome) {
-        for (Actionable actionable : smartHome.getActionables()) {
-            if (actionable instanceof Signalization) {
-                return ((Signalization) actionable).isAlarmed();
+        AtomicBoolean isAlarmed = new AtomicBoolean(false);
+        smartHome.execute(object -> {
+            if (object instanceof Signalization) {
+                isAlarmed.set(((Signalization) object).isAlarmed());
             }
-        }
-        return false;
+        });
+        return isAlarmed.get();
     }
 }

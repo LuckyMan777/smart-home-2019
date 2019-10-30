@@ -5,6 +5,7 @@ import ru.sbt.mipt.oop.devices.Signalization;
 public class ActivatedState extends State {
 
     String password;
+
     /**
      * Контекст передаёт себя в конструктор состояния, чтобы состояние могло
      * обращаться к его данным и методам в будущем, если потребуется.
@@ -21,10 +22,9 @@ public class ActivatedState extends State {
 
     @Override
     public void onDeactivate(String password) {
-        if (password.equals(this.password)){
+        if (password.equals(this.password)) {
             signalization.changeState(new DeactivatedState(signalization));
-        }
-        else
+        } else
             signalization.changeState(new AlarmedState(signalization));
     }
 

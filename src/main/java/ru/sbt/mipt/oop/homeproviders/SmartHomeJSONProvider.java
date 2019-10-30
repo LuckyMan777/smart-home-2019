@@ -5,8 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import ru.sbt.mipt.oop.Room;
-import ru.sbt.mipt.oop.devices.Signalization;
 import ru.sbt.mipt.oop.SmartHome;
+import ru.sbt.mipt.oop.devices.Signalization;
 import ru.sbt.mipt.oop.devices.SmartDevice;
 
 import java.io.IOException;
@@ -59,8 +59,7 @@ public class SmartHomeJSONProvider implements SmartHomeProvider {
                     r.addSmartDevice((SmartDevice) smartDevice);
                 }
                 smartHome.addActionable(r);
-            }
-            else if (actionable.getAsJsonObject().has("state")) {
+            } else if (actionable.getAsJsonObject().has("state")) {
                 smartHome.addActionable(new Signalization());
             }
         }

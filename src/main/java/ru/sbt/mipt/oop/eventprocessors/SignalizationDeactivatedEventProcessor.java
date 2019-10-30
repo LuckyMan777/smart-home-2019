@@ -1,6 +1,8 @@
 package ru.sbt.mipt.oop.eventprocessors;
 
-import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.SensorEventType;
+import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.devices.Signalization;
 
 public class SignalizationDeactivatedEventProcessor implements EventProcessor {
@@ -8,12 +10,9 @@ public class SignalizationDeactivatedEventProcessor implements EventProcessor {
     @Override
     public void processSensorEvent(SensorEvent sensorEvent, SmartHome smartHome) {
         if (checkSensorEventIsCorrect(sensorEvent, smartHome)) {
-            smartHome.execute(new Action() {
-                @Override
-                public void execute(Object object) {
-                    if (object instanceof Signalization)
-                        ((Signalization) object).deactivate(sensorEvent.getType().getCode());
-                }
+            smartHome.execute(object -> {
+                if (object instanceof Signalization)
+                    ((Signalization) object).deactivate(sensorEvent.getType().getCode());
             });
         }
     }

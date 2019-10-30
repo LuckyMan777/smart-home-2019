@@ -21,22 +21,24 @@ public class Signalization implements Actionable {
     public void activate(String password) {
         state.onActivate(password);
     }
+
     public void deactivate(String password) {
         state.onDeactivate(password);
     }
+
     public void toAlarm() {
         state.onAlarm();
     }
 
-    public boolean isActivated(){
+    public boolean isActivated() {
         return state instanceof ActivatedState;
     }
 
-    public boolean isDeactivated(){
+    public boolean isDeactivated() {
         return state instanceof DeactivatedState;
     }
 
-    public boolean isAlarmed(){
+    public boolean isAlarmed() {
         return state instanceof AlarmedState;
     }
 

@@ -6,7 +6,8 @@ import java.util.Collection;
 public class SmartHome implements Actionable {
     Collection<Actionable> actionables;
 
-    public SmartHome() { actionables = new ArrayList<>();
+    public SmartHome() {
+        actionables = new ArrayList<>();
     }
 
     public SmartHome(Collection<Actionable> actiobables) {
@@ -20,8 +21,8 @@ public class SmartHome implements Actionable {
     @Override
     public void execute(Action action) {
         action.execute(this);
-        for (Actionable room : rooms) {
-            room.execute(action);
+        for (Actionable actionable : actionables) {
+            actionable.execute(action);
         }
     }
 }

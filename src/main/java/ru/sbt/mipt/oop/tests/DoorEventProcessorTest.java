@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.tests;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.devices.Door;
 import ru.sbt.mipt.oop.devices.Light;
@@ -11,8 +11,8 @@ import java.util.List;
 
 class DoorEventProcessorTest {
 
-    private SmartHome smartHome;
     private final List<Integer> doorNums = Arrays.asList(1, 2, 3, 4);
+    private SmartHome smartHome;
 
     @BeforeEach
     void setUp() {
