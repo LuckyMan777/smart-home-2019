@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop.eventprocessors;
 
 import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.commandsenders.CommandSender;
 import ru.sbt.mipt.oop.devices.Door;
 import ru.sbt.mipt.oop.devices.Light;
 import ru.sbt.mipt.oop.devices.SmartDevice;
@@ -11,8 +12,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
 public class HallClosingEventProcessor implements SensorEventProcessor {
 
-    private static void sendCommand(SensorCommand command) {
-        System.out.println("Pretend we're sending command " + command);
+    private CommandSender commandSender;
+
+    public HallClosingEventProcessor(CommandSender commandSender) {
+        this.commandSender = commandSender;
     }
 
     @Override
@@ -28,7 +31,7 @@ public class HallClosingEventProcessor implements SensorEventProcessor {
                     Light light = (Light) object;
                     ((Light) object).setOn(false);
                     SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                    sendCommand(command);
+                    commandSender.sendCommand(command);
                 }
             });
         }

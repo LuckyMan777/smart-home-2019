@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.commandsenders.SimpleCommandSender;
 import ru.sbt.mipt.oop.eventprocessors.DoorEventProcessor;
 import ru.sbt.mipt.oop.eventprocessors.HallClosingEventProcessor;
 import ru.sbt.mipt.oop.eventprocessors.LightEventProcessor;
@@ -13,7 +14,7 @@ public class Configs {
         List<SensorEventProcessor> sensorEventProcessors = new ArrayList<>();
         sensorEventProcessors.add(new LightEventProcessor());
         sensorEventProcessors.add(new DoorEventProcessor());
-        sensorEventProcessors.add(new HallClosingEventProcessor());
+        sensorEventProcessors.add(new HallClosingEventProcessor(new SimpleCommandSender()));
         return sensorEventProcessors;
     }
 }
