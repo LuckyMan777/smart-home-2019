@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Configs {
+
+    public static String getFilenameWithSmartHome(){
+        return "smart-home-1.js";
+    }
+
     public static List<EventProcessor> getEventProcessors() {
         List<EventProcessor> sensorEventProcessors = new ArrayList<>();
         sensorEventProcessors.add(new SignalizationDecorator(new LightEventProcessor()));
