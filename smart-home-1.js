@@ -1,81 +1,99 @@
 {
   "rooms": [
     {
-      "lights": [
+      "smartDevices": [
         {
           "isOn": false,
-          "id": "1"
+          "id": "1",
+          "className": "ru.sbt.mipt.oop.devices.Light",
+          "roomName": "kitchen"
         },
         {
           "isOn": true,
-          "id": "2"
-        }
-      ],
-      "doors": [
+          "id": "2",
+          "className": "ru.sbt.mipt.oop.devices.Light",
+          "roomName": "kitchen"
+        },
         {
+          "isOpen": false,
           "id": "1",
-          "isOpen": false
+          "className": "ru.sbt.mipt.oop.devices.Door",
+          "roomName": "kitchen"
         }
       ],
       "name": "kitchen"
     },
     {
-      "lights": [
+      "smartDevices": [
         {
           "isOn": true,
-          "id": "3"
-        }
-      ],
-      "doors": [
+          "id": "3",
+          "className": "ru.sbt.mipt.oop.devices.Light",
+          "roomName": "bathroom"
+        },
         {
+          "isOpen": false,
           "id": "2",
-          "isOpen": false
+          "className": "ru.sbt.mipt.oop.devices.Door",
+          "roomName": "bathroom"
         }
       ],
       "name": "bathroom"
     },
     {
-      "lights": [
+      "smartDevices": [
         {
           "isOn": false,
-          "id": "4"
+          "id": "4",
+          "className": "ru.sbt.mipt.oop.devices.Light",
+          "roomName": "bedroom"
         },
         {
           "isOn": false,
-          "id": "5"
+          "id": "5",
+          "className": "ru.sbt.mipt.oop.devices.Light",
+          "roomName": "bedroom"
         },
         {
           "isOn": false,
-          "id": "6"
-        }
-      ],
-      "doors": [
+          "id": "6",
+          "className": "ru.sbt.mipt.oop.devices.Light",
+          "roomName": "bedroom"
+        },
         {
+          "isOpen": true,
           "id": "3",
-          "isOpen": true
+          "className": "ru.sbt.mipt.oop.devices.Door",
+          "roomName": "bedroom"
         }
       ],
       "name": "bedroom"
     },
     {
-      "lights": [
+      "smartDevices": [
         {
           "isOn": false,
-          "id": "7"
+          "id": "7",
+          "className": "ru.sbt.mipt.oop.devices.Light",
+          "roomName": "hall"
         },
         {
           "isOn": false,
-          "id": "8"
+          "id": "8",
+          "className": "ru.sbt.mipt.oop.devices.Light",
+          "roomName": "hall"
         },
         {
           "isOn": false,
-          "id": "9"
-        }
-      ],
-      "doors": [
+          "id": "9",
+          "className": "ru.sbt.mipt.oop.devices.Light",
+          "roomName": "hall"
+        },
         {
+          "isOpen": false,
           "id": "4",
-          "isOpen": false
+          "className": "ru.sbt.mipt.oop.devices.Door",
+          "roomName": "hall"
         }
       ],
       "name": "hall"

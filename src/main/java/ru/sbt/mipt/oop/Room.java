@@ -1,27 +1,31 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.devices.SmartDevice;
+
 import java.util.Collection;
 
-public class Room {
-    private Collection<Light> lights;
-    private Collection<Door> doors;
+public class Room implements Actionable {
+    private Collection<SmartDevice> smartDevices;
     private String name;
 
-    public Room(Collection<Light> lights, Collection<Door> doors, String name) {
-        this.lights = lights;
-        this.doors = doors;
+    public Room(Collection<SmartDevice> smartDevices, String name) {
+        this.smartDevices = smartDevices;
         this.name = name;
     }
 
-    public Collection<Light> getLights() {
-        return lights;
-    }
-
-    public Collection<Door> getDoors() {
-        return doors;
+    public void addSmartDevice(SmartDevice smartDevice) {
+        smartDevices.add(smartDevice);
     }
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public void execute(Action action) {
+        action.execute(this);
+        for (Actionable smartDevice : smartDevices) {
+            smartDevice.execute(action);
+        }
     }
 }
