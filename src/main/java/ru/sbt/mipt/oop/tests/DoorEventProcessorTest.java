@@ -37,7 +37,7 @@ class DoorEventProcessorTest {
         for (Integer doorNum : doorNums) {
             smartHomeProcessing.processSensorEvent(
                     new SensorEvent(SensorEventType.DOOR_OPEN, Integer.toString(doorNum)));
-            TestUtils.checkDoorOnOff(smartHome, Integer.toString(doorNum), true);
+            TestUtils.checkDoorOpenClosed(smartHome, Integer.toString(doorNum), true);
         }
     }
 
@@ -48,7 +48,7 @@ class DoorEventProcessorTest {
         for (Integer doorNum : doorNums) {
             smartHomeProcessing.processSensorEvent(
                     new SensorEvent(SensorEventType.DOOR_CLOSED, Integer.toString(doorNum)));
-            TestUtils.checkDoorOnOff(smartHome, Integer.toString(doorNum), false);
+            TestUtils.checkDoorOpenClosed(smartHome, Integer.toString(doorNum), false);
         }
     }
 }
