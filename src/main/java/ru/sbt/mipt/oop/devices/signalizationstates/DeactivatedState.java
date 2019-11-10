@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop.devices.signalizationstates;
 
 import ru.sbt.mipt.oop.devices.Signalization;
 
-public class DeactivatedState extends State {
+public class DeactivatedState extends SignalizationState {
 
     /**
      * Контекст передаёт себя в конструктор состояния, чтобы состояние могло

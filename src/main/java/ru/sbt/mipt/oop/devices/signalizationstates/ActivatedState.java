@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop.devices.signalizationstates;
 
 import ru.sbt.mipt.oop.devices.Signalization;
 
-public class ActivatedState extends State {
+public class ActivatedState extends SignalizationState {
 
     String password;
 
