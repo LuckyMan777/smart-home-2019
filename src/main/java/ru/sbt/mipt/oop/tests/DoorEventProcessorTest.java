@@ -31,13 +31,13 @@ class DoorEventProcessorTest {
     }
 
     @Test
-    void checkDoorOpenAfterDoorOpenEventProcess() {
+    void checkDoorOpenAfterDoorOpenEventProcess( ) {
         SmartHomeProcessing smartHomeProcessing = new SmartHomeProcessing(smartHome, null);
 
         for (Integer doorNum : doorNums) {
             smartHomeProcessing.processSensorEvent(
                     new SensorEvent(SensorEventType.DOOR_OPEN, Integer.toString(doorNum)));
-            TestUtils.checkDoorOpenClosed(smartHome, Integer.toString(doorNum), true);
+            smartHome.execute(new TestUtils.CheckDoorState(true, Integer.toString(doorNum)));
         }
     }
 
@@ -48,7 +48,7 @@ class DoorEventProcessorTest {
         for (Integer doorNum : doorNums) {
             smartHomeProcessing.processSensorEvent(
                     new SensorEvent(SensorEventType.DOOR_CLOSED, Integer.toString(doorNum)));
-            TestUtils.checkDoorOpenClosed(smartHome, Integer.toString(doorNum), false);
+            smartHome.execute(new TestUtils.CheckDoorState(false, Integer.toString(doorNum)));
         }
     }
 }

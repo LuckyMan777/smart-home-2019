@@ -2,14 +2,14 @@ package ru.sbt.mipt.oop.devices.signalizationstates;
 
 import ru.sbt.mipt.oop.devices.Signalization;
 
-public abstract class State {
+public abstract class SignalizationState {
     transient Signalization signalization;
 
     /**
      * Контекст передаёт себя в конструктор состояния, чтобы состояние могло
      * обращаться к его данным и методам в будущем, если потребуется.
      */
-    State(Signalization signalization) {
+    SignalizationState(Signalization signalization) {
         this.signalization = signalization;
     }
 

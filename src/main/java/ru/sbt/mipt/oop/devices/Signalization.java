@@ -5,16 +5,16 @@ import ru.sbt.mipt.oop.Actionable;
 import ru.sbt.mipt.oop.devices.signalizationstates.ActivatedState;
 import ru.sbt.mipt.oop.devices.signalizationstates.AlarmedState;
 import ru.sbt.mipt.oop.devices.signalizationstates.DeactivatedState;
-import ru.sbt.mipt.oop.devices.signalizationstates.State;
+import ru.sbt.mipt.oop.devices.signalizationstates.SignalizationState;
 
 public class Signalization implements Actionable {
-    private State state;
+    private SignalizationState state;
 
     public Signalization() {
         this.state = new DeactivatedState(this);
     }
 
-    public void changeState(State state) {
+    public void changeState(SignalizationState state) {
         this.state = state;
     }
 

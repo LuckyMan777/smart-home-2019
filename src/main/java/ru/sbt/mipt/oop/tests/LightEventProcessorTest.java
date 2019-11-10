@@ -36,7 +36,7 @@ class LightEventProcessorTest {
         for (Integer lightNum : lightNums) {
             smartHomeProcessing.processSensorEvent(
                     new SensorEvent(SensorEventType.LIGHT_ON, Integer.toString(lightNum)));
-            TestUtils.checkLightOnOff(smartHome, Integer.toString(lightNum), true);
+            smartHome.execute(new TestUtils.CheckLightState(true, Integer.toString(lightNum)));
         }
     }
 
@@ -47,7 +47,7 @@ class LightEventProcessorTest {
         for (Integer lightNum : lightNums) {
             smartHomeProcessing.processSensorEvent(
                     new SensorEvent(SensorEventType.LIGHT_OFF, Integer.toString(lightNum)));
-            TestUtils.checkLightOnOff(smartHome, Integer.toString(lightNum), false);
+            smartHome.execute(new TestUtils.CheckLightState(false, Integer.toString(lightNum)));
         }
     }
 }

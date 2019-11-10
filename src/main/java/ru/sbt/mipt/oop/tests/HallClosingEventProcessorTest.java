@@ -6,6 +6,7 @@ import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.devices.Door;
 import ru.sbt.mipt.oop.devices.Light;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,9 +38,7 @@ class HallClosingEventProcessorTest {
         smartHomeProcessing.processSensorEvent(
                 new SensorEvent(SensorEventType.DOOR_CLOSED, Integer.toString(hallDoorNum)));
 
-        for (Integer lightNotInHallNum : lightNums) {
-            TestUtils.checkLightOnOff(smartHome, Integer.toString(lightNotInHallNum), false);
-        }
+        smartHome.execute(new TestUtils.CheckAllLightStates(false));
     }
 
 }
