@@ -12,8 +12,8 @@ public class Configs {
         sensorEventProcessors.add(new SignalizationDecorator(new LightEventProcessor()));
         sensorEventProcessors.add(new SignalizationDecorator(new DoorEventProcessor()));
         sensorEventProcessors.add(new SignalizationDecorator(new HallClosingEventProcessor(new SimpleCommandSender())));
-        sensorEventProcessors.add(new SignalizationDecorator(new SignalizationActivatedEventProcessor()));
         sensorEventProcessors.add(new SignalizationDecorator(new SignalizationDeactivatedEventProcessor()));
+        sensorEventProcessors.add(new SignalizationDecorator(new SignalizationActivatedEventProcessor()));
 
         return sensorEventProcessors;
     }
