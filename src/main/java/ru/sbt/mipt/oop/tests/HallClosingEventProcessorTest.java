@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.tests;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.devices.Door;
 import ru.sbt.mipt.oop.devices.Light;
@@ -10,9 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 
 class HallClosingEventProcessorTest {
-    private SmartHome smartHome;
     private final List<Integer> lightNums = Arrays.asList(1, 2, 3, 4, 5, 6);
     private final int hallDoorNum = 2;
+    private SmartHome smartHome;
 
     @BeforeEach
     void setUp() {

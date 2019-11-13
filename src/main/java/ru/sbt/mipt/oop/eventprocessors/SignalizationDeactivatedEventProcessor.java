@@ -1,0 +1,24 @@
+package ru.sbt.mipt.oop.eventprocessors;
+
+import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.SensorEventType;
+import ru.sbt.mipt.oop.SmartHome;
+import ru.sbt.mipt.oop.devices.Signalization;
+
+public class SignalizationDeactivatedEventProcessor implements EventProcessor {
+
+    @Override
+    public void processSensorEvent(SensorEvent sensorEvent, SmartHome smartHome) {
+        if (checkSensorEventIsCorrect(sensorEvent, smartHome)) {
+            smartHome.execute(object -> {
+                if (object instanceof Signalization)
+                    ((Signalization) object).deactivate(sensorEvent.getType().getCode());
+            });
+        }
+    }
+
+    @Override
+    public boolean checkSensorEventIsCorrect(SensorEvent sensorEvent, SmartHome smartHome) {
+        return sensorEvent.getType() == SensorEventType.ALARM_DEACTIVATE;
+    }
+}

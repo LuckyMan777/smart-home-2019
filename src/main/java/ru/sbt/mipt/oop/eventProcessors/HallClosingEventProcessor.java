@@ -4,13 +4,12 @@ import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.commandsenders.CommandSender;
 import ru.sbt.mipt.oop.devices.Door;
 import ru.sbt.mipt.oop.devices.Light;
-import ru.sbt.mipt.oop.devices.SmartDevice;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
 // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-public class HallClosingEventProcessor implements SensorEventProcessor {
+public class HallClosingEventProcessor implements EventProcessor {
 
     private CommandSender commandSender;
 
@@ -37,18 +36,19 @@ public class HallClosingEventProcessor implements SensorEventProcessor {
         }
     }
 
-    private boolean checkSensorEventIsCorrect(SensorEvent sensorEvent, SmartHome smartHome) {
-        AtomicBoolean correct = new AtomicBoolean(false);
+    @Override
+    public boolean checkSensorEventIsCorrect(SensorEvent sensorEvent, SmartHome smartHome) {
+        final boolean[] correct = {false};
         if (sensorEvent.getType() == SensorEventType.DOOR_CLOSED) {
             smartHome.execute(object -> {
                 if (object instanceof Door) {
                     Door door = (Door) object;
                     if (door.getRoomName().equals("hall") && door.getId().equals(sensorEvent.getObjectId())) {
-                        correct.set(true);
+                        correct[0] = true;
                     }
                 }
             });
         }
-        return correct.get();
+        return correct[0];
     }
 }

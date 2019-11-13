@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import ru.sbt.mipt.oop.Room;
 import ru.sbt.mipt.oop.SmartHome;
+import ru.sbt.mipt.oop.devices.Signalization;
 import ru.sbt.mipt.oop.devices.SmartDevice;
 
 import java.io.IOException;
@@ -44,18 +45,23 @@ public class SmartHomeJSONProvider implements SmartHomeProvider {
 
     private void addRoomsFromJsonToSmartHome(String json, SmartHome smartHome) throws ClassNotFoundException {
         Gson gson = new Gson();
-        JsonArray rooms = new JsonParser().parse(json).getAsJsonObject().get("rooms").getAsJsonArray();
-        for (JsonElement room : rooms) {
-            String name = room.getAsJsonObject().get("name").getAsString();
-            JsonArray devices = room.getAsJsonObject().get("smartDevices").getAsJsonArray();
-            Room r = new Room(new ArrayList<>(), name);
-            for (JsonElement device : devices) {
-                String type = device.getAsJsonObject().get("className").getAsString();
-                Class<?> clazz = Class.forName(type);
-                Object smartDevice = gson.fromJson(device.toString(), clazz);
-                r.addSmartDevice((SmartDevice) smartDevice);
+        JsonArray actionables = new JsonParser().parse(json).getAsJsonObject().get("actionables").getAsJsonArray();
+        for (JsonElement actionable : actionables) {
+            if (actionable.getAsJsonObject().has("name") &&
+                    actionable.getAsJsonObject().has("smartDevices")) {
+                String name = actionable.getAsJsonObject().get("name").getAsString();
+                JsonArray devices = actionable.getAsJsonObject().get("smartDevices").getAsJsonArray();
+                Room r = new Room(new ArrayList<>(), name);
+                for (JsonElement device : devices) {
+                    String type = device.getAsJsonObject().get("className").getAsString();
+                    Class<?> clazz = Class.forName(type);
+                    Object smartDevice = gson.fromJson(device.toString(), clazz);
+                    r.addSmartDevice((SmartDevice) smartDevice);
+                }
+                smartHome.addActionable(r);
+            } else if (actionable.getAsJsonObject().has("state")) {
+                smartHome.addActionable(new Signalization());
             }
-            smartHome.addRoom(r);
         }
     }
 

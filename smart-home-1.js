@@ -1,5 +1,5 @@
 {
-  "rooms": [
+  "actionables": [
     {
       "smartDevices": [
         {
@@ -97,6 +97,9 @@
         }
       ],
       "name": "hall"
+    },
+    {
+      "state": {}
     }
   ]
 }

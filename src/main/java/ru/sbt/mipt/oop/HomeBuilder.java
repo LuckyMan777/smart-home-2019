@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.sbt.mipt.oop.devices.Door;
 import ru.sbt.mipt.oop.devices.Light;
+import ru.sbt.mipt.oop.devices.Signalization;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class HomeBuilder {
                 new Door("4", "hall", false)),
                 "hall");
 
-        return new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
+        return new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall, new Signalization()));
     }
 
 
