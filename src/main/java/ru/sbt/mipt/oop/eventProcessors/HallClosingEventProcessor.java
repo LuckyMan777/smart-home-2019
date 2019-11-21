@@ -38,17 +38,17 @@ public class HallClosingEventProcessor implements EventProcessor {
 
     @Override
     public boolean checkSensorEventIsCorrect(SensorEvent sensorEvent, SmartHome smartHome) {
-        AtomicBoolean correct = new AtomicBoolean(false);
+        final boolean[] correct = {false};
         if (sensorEvent.getType() == SensorEventType.DOOR_CLOSED) {
             smartHome.execute(object -> {
                 if (object instanceof Door) {
                     Door door = (Door) object;
                     if (door.getRoomName().equals("hall") && door.getId().equals(sensorEvent.getObjectId())) {
-                        correct.set(true);
+                        correct[0] = true;
                     }
                 }
             });
         }
-        return correct.get();
+        return correct[0];
     }
 }

@@ -17,6 +17,7 @@ public class SignalizationDecorator implements EventProcessor {
         if (signalization != null) {
             if (signalization.isDeactivated()) {
                 basicEventProcessor.processSensorEvent(sensorEvent, smartHome);
+                return;
             }
             if (signalization.isActivated()) {
                 signalization.toAlarm();
