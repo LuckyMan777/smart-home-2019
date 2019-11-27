@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop.eventprocessors;
 
+import org.springframework.stereotype.Component;
 import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.devices.Door;
@@ -7,6 +8,7 @@ import ru.sbt.mipt.oop.devices.Door;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 
+@Component
 public class DoorEventProcessor implements EventProcessor {
     @Override
     public void processSensorEvent(SensorEvent sensorEvent, SmartHome smartHome) {

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.devices.Door;
 import ru.sbt.mipt.oop.devices.Light;
+import ru.sbt.mipt.oop.eventprocessors.LightEventProcessor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 class LightEventProcessorTest {
     private final List<Integer> lightNums = Arrays.asList(1, 2, 3, 4, 5, 6);
     private SmartHome smartHome;
+    private LightEventProcessor lightEventProcessor;
 
     @BeforeEach
     void setUp() {
@@ -27,26 +29,25 @@ class LightEventProcessorTest {
                 "hall");
 
         smartHome = new SmartHome(Arrays.asList(bedroom, hall));
+        lightEventProcessor = new LightEventProcessor();
     }
 
     @Test
     void checkLightOnAfterLightOnEventProcess() {
-        SmartHomeProcessing smartHomeProcessing = new SmartHomeProcessing(smartHome, null);
-
         for (Integer lightNum : lightNums) {
-            smartHomeProcessing.processSensorEvent(
-                    new SensorEvent(SensorEventType.LIGHT_ON, Integer.toString(lightNum)));
+            lightEventProcessor.processSensorEvent(
+                    new SensorEvent(SensorEventType.LIGHT_ON, Integer.toString(lightNum)),
+                    smartHome);
             smartHome.execute(new TestUtils.CheckLightState(true, Integer.toString(lightNum)));
         }
     }
 
     @Test
     void checkLightOffAfterLightOffEventProcess() {
-        SmartHomeProcessing smartHomeProcessing = new SmartHomeProcessing(smartHome, null);
-
         for (Integer lightNum : lightNums) {
-            smartHomeProcessing.processSensorEvent(
-                    new SensorEvent(SensorEventType.LIGHT_OFF, Integer.toString(lightNum)));
+            lightEventProcessor.processSensorEvent(
+                    new SensorEvent(SensorEventType.LIGHT_OFF, Integer.toString(lightNum)),
+                    smartHome);
             smartHome.execute(new TestUtils.CheckLightState(false, Integer.toString(lightNum)));
         }
     }

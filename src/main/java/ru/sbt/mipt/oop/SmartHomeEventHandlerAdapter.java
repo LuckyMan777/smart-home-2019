@@ -2,48 +2,33 @@ package ru.sbt.mipt.oop;
 
 import com.coolcompany.smarthome.events.CCSensorEvent;
 import com.coolcompany.smarthome.events.EventHandler;
+import org.springframework.stereotype.Component;
 import ru.sbt.mipt.oop.eventprocessors.EventProcessor;
-import ru.sbt.mipt.oop.homeproviders.SmartHomeJSONProvider;
-import ru.sbt.mipt.oop.homeproviders.SmartHomeProvider;
-
-import java.util.Collection;
+import ru.sbt.mipt.oop.eventprocessors.SmartHomeEventProcessor;
+import ru.sbt.mipt.oop.eventprocessors.SignalizationDecorator;
+import ru.sbt.mipt.oop.factory.StringSensorEventFactory;
 
 public class SmartHomeEventHandlerAdapter implements EventHandler {
 
-    private Collection<EventProcessor> eventProcessors;
+    private SmartHomeEventProcessor homeEventProcessor;
     private SmartHome smartHome;
+    private StringSensorEventFactory stringSensorEventFactory;
+    private SignalizationDecorator signalizationDecorator;
 
-    public SmartHomeEventHandlerAdapter() {
-        SmartHomeProvider smartHomeProvider = new SmartHomeJSONProvider(Configs.getFilenameWithSmartHome());
-        smartHome = smartHomeProvider.provideSmartHome();
-        eventProcessors = Configs.getEventProcessors();
-    }
-
-    private SensorEvent getSensorEventFromCCSensorEvent(CCSensorEvent ccSensorEvent) {
-        switch (ccSensorEvent.getEventType()) {
-            case "LightIsOn":
-                return new SensorEvent(SensorEventType.LIGHT_ON, ccSensorEvent.getObjectId());
-            case "LightIsOff":
-                return new SensorEvent(SensorEventType.LIGHT_OFF, ccSensorEvent.getObjectId());
-            case "DoorIsOpen":
-                return new SensorEvent(SensorEventType.DOOR_OPEN, ccSensorEvent.getObjectId());
-            case "DoorIsClosed":
-                return new SensorEvent(SensorEventType.DOOR_CLOSED, ccSensorEvent.getObjectId());
-            default:
-                return null;
-        }
+    public SmartHomeEventHandlerAdapter(SmartHome smartHome,
+                                        StringSensorEventFactory stringSensorEventFactory,
+                                        SignalizationDecorator signalizationDecorator) {
+        this.smartHome = smartHome;
+        this.stringSensorEventFactory = stringSensorEventFactory;
+        this.signalizationDecorator = signalizationDecorator;
     }
 
     @Override
     public void handleEvent(CCSensorEvent event) {
-        SensorEvent sensorEvent = getSensorEventFromCCSensorEvent(event);
+        SensorEvent sensorEvent = stringSensorEventFactory.getSensorEvent(event.getEventType(), event.getObjectId());
         if (sensorEvent == null) {
             return;
         }
-
-        System.out.println("Got event: " + sensorEvent);
-        for (EventProcessor sensorEventProcessor : eventProcessors) {
-            sensorEventProcessor.processSensorEvent(sensorEvent, smartHome);
-        }
+        signalizationDecorator.processSensorEvent(sensorEvent, smartHome);
     }
 }

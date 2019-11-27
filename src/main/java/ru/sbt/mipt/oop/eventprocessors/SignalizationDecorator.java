@@ -4,8 +4,10 @@ import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.devices.Signalization;
 
+
 public class SignalizationDecorator implements EventProcessor {
     EventProcessor basicEventProcessor;
+
 
     public SignalizationDecorator(EventProcessor basicEventProcessor) {
         this.basicEventProcessor = basicEventProcessor;

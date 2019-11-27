@@ -10,10 +10,10 @@ public class SmartHomeProcessing {
     private SensorEventProvider sensorEventProvider;
     private Collection<EventProcessor> eventProcessors;
 
-    public SmartHomeProcessing(SmartHome smartHome, SensorEventProvider sensorEventProvider) {
+    public SmartHomeProcessing(SmartHome smartHome, SensorEventProvider sensorEventProvider, Collection<EventProcessor> eventProcessors) {
         this.smartHome = smartHome;
         this.sensorEventProvider = sensorEventProvider;
-        eventProcessors = Configs.getEventProcessors();
+        this.eventProcessors = eventProcessors;
     }
 
     public void smartHomeProcess() {
