@@ -7,9 +7,8 @@ import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.homeproviders.SmartHomeJSONProvider;
 import ru.sbt.mipt.oop.homeproviders.SmartHomeProvider;
 import ru.sbt.mipt.oop.remotecontrol.SmartHomeRemoteControl;
-import ru.sbt.mipt.oop.remotecontrol.commands.ActivateSignalizationCommand;
 import ru.sbt.mipt.oop.remotecontrol.commands.AlarmSignalizationCommand;
-import ru.sbt.mipt.oop.remotecontrol.commands.TurnOnLightsInHall;
+import ru.sbt.mipt.oop.remotecontrol.commands.TurnOnLightsInHallCommand;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +26,7 @@ class SmartHomeRemoteControlTest {
     @Test
     void correctButton() {
         smartHomeRemoteControl.registerButtonToCommand("1", new AlarmSignalizationCommand(smartHome));
-        smartHomeRemoteControl.registerButtonToCommand("2", new TurnOnLightsInHall(smartHome));
+        smartHomeRemoteControl.registerButtonToCommand("2", new TurnOnLightsInHallCommand(smartHome));
         assertNotNull(smartHomeRemoteControl.getCommand("1"));
         assertNotNull(smartHomeRemoteControl.getCommand("2"));
     }
@@ -35,7 +34,7 @@ class SmartHomeRemoteControlTest {
     @Test
     void wrongButton() {
         smartHomeRemoteControl.registerButtonToCommand("11", new AlarmSignalizationCommand(smartHome));
-        smartHomeRemoteControl.registerButtonToCommand("21", new TurnOnLightsInHall(smartHome));
+        smartHomeRemoteControl.registerButtonToCommand("21", new TurnOnLightsInHallCommand(smartHome));
         assertNull(smartHomeRemoteControl.getCommand("11"));
         assertNull(smartHomeRemoteControl.getCommand("21"));
     }

@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import ru.sbt.mipt.oop.Configs;
+import ru.sbt.mipt.oop.SmartHome;
+import ru.sbt.mipt.oop.SmartHomeEventHandlerAdapter;
 import ru.sbt.mipt.oop.eventprocessors.EventProcessor;
 import ru.sbt.mipt.oop.eventprocessors.SignalizationDecorator;
 import ru.sbt.mipt.oop.eventprocessors.SmartHomeEventProcessor;
@@ -34,7 +37,7 @@ public class SpringConfiguration {
     }
 
     @Bean
-    SignalizationDecorator signalizationDecorator(){
+    SignalizationDecorator signalizationDecorator() {
         return new SignalizationDecorator(smartHomeEventProcessor());
     }
 

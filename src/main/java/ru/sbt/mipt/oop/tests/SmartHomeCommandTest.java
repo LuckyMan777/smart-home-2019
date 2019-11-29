@@ -55,7 +55,7 @@ class SmartHomeCommandTest {
 
     @Test
     void testTurnOnAllLightsInHallCommand(){
-        (new TurnOnLightsInHall(smartHome)).execute();
+        (new TurnOnLightsInHallCommand(smartHome)).execute();
         smartHome.execute(new TestUtils.CheckAllLightStatesInRoom(true, "hall"));
     }
 }
