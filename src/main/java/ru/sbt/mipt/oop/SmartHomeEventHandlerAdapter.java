@@ -2,18 +2,15 @@ package ru.sbt.mipt.oop;
 
 import com.coolcompany.smarthome.events.CCSensorEvent;
 import com.coolcompany.smarthome.events.EventHandler;
-import org.springframework.stereotype.Component;
 import ru.sbt.mipt.oop.eventprocessors.EventProcessor;
-import ru.sbt.mipt.oop.eventprocessors.SmartHomeEventProcessor;
 import ru.sbt.mipt.oop.eventprocessors.SignalizationDecorator;
 import ru.sbt.mipt.oop.factory.StringSensorEventFactory;
 
 public class SmartHomeEventHandlerAdapter implements EventHandler {
 
-    private SmartHomeEventProcessor homeEventProcessor;
     private SmartHome smartHome;
     private StringSensorEventFactory stringSensorEventFactory;
-    private SignalizationDecorator signalizationDecorator;
+    private EventProcessor signalizationDecorator;
 
     public SmartHomeEventHandlerAdapter(SmartHome smartHome,
                                         StringSensorEventFactory stringSensorEventFactory,
