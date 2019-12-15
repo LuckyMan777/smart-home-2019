@@ -1,21 +1,18 @@
 package ru.sbt.mipt.oop.eventprocessors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.commandsenders.CommandSender;
+import ru.sbt.mipt.oop.commandsenders.CommandType;
+import ru.sbt.mipt.oop.commandsenders.SensorCommand;
 import ru.sbt.mipt.oop.devices.Door;
 import ru.sbt.mipt.oop.devices.Light;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
 // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
+@Component
 public class HallClosingEventProcessor implements EventProcessor {
-
-    private CommandSender commandSender;
-
-    public HallClosingEventProcessor(CommandSender commandSender) {
-        this.commandSender = commandSender;
-    }
 
     @Override
     public void processSensorEvent(SensorEvent sensorEvent, SmartHome smartHome) {
@@ -30,7 +27,7 @@ public class HallClosingEventProcessor implements EventProcessor {
                     Light light = (Light) object;
                     ((Light) object).setOn(false);
                     SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                    commandSender.sendCommand(command);
+                    CommandSender.sendCommand(command);
                 }
             });
         }

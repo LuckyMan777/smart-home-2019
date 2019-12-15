@@ -1,4 +1,6 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.commandsenders;
+
+import ru.sbt.mipt.oop.commandsenders.CommandType;
 
 public class SensorCommand {
     private final CommandType type;

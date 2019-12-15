@@ -3,47 +3,39 @@ package ru.sbt.mipt.oop;
 import com.coolcompany.smarthome.events.CCSensorEvent;
 import com.coolcompany.smarthome.events.EventHandler;
 import ru.sbt.mipt.oop.eventprocessors.EventProcessor;
-import ru.sbt.mipt.oop.homeproviders.SmartHomeJSONProvider;
-import ru.sbt.mipt.oop.homeproviders.SmartHomeProvider;
+import ru.sbt.mipt.oop.eventprocessors.SignalizationDecorator;
+import ru.sbt.mipt.oop.factory.SensorEventFactory;
 
-import java.util.Collection;
+import java.util.Map;
 
 public class SmartHomeEventHandlerAdapter implements EventHandler {
 
-    private Collection<EventProcessor> eventProcessors;
     private SmartHome smartHome;
+    private EventProcessor signalizationDecorator;
+    private Map<String, SensorEventFactory> stringToSensorEventFactoryMap;
 
-    public SmartHomeEventHandlerAdapter() {
-        SmartHomeProvider smartHomeProvider = new SmartHomeJSONProvider(Configs.getFilenameWithSmartHome());
-        smartHome = smartHomeProvider.provideSmartHome();
-        eventProcessors = Configs.getEventProcessors();
+    public SmartHomeEventHandlerAdapter(SmartHome smartHome,
+                                        SignalizationDecorator signalizationDecorator,
+                                        Map<String, SensorEventFactory> stringToSensorEventFactoryMap) {
+        this.smartHome = smartHome;
+        this.signalizationDecorator = signalizationDecorator;
+        this.stringToSensorEventFactoryMap = stringToSensorEventFactoryMap;
     }
 
-    private SensorEvent getSensorEventFromCCSensorEvent(CCSensorEvent ccSensorEvent) {
-        switch (ccSensorEvent.getEventType()) {
-            case "LightIsOn":
-                return new SensorEvent(SensorEventType.LIGHT_ON, ccSensorEvent.getObjectId());
-            case "LightIsOff":
-                return new SensorEvent(SensorEventType.LIGHT_OFF, ccSensorEvent.getObjectId());
-            case "DoorIsOpen":
-                return new SensorEvent(SensorEventType.DOOR_OPEN, ccSensorEvent.getObjectId());
-            case "DoorIsClosed":
-                return new SensorEvent(SensorEventType.DOOR_CLOSED, ccSensorEvent.getObjectId());
-            default:
-                return null;
+    private SensorEvent convertEvent(CCSensorEvent sensorEvent) {
+        if (stringToSensorEventFactoryMap.containsKey(sensorEvent.getEventType())) {
+            return stringToSensorEventFactoryMap.get(sensorEvent.getEventType()).getSensorEvent(sensorEvent.getObjectId());
+        } else {
+            return null;
         }
     }
 
     @Override
     public void handleEvent(CCSensorEvent event) {
-        SensorEvent sensorEvent = getSensorEventFromCCSensorEvent(event);
+        SensorEvent sensorEvent = convertEvent(event);
         if (sensorEvent == null) {
             return;
         }
-
-        System.out.println("Got event: " + sensorEvent);
-        for (EventProcessor sensorEventProcessor : eventProcessors) {
-            sensorEventProcessor.processSensorEvent(sensorEvent, smartHome);
-        }
+        signalizationDecorator.processSensorEvent(sensorEvent, smartHome);
     }
 }

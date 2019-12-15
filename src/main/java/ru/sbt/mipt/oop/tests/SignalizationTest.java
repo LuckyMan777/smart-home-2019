@@ -27,7 +27,7 @@ class SignalizationTest {
         assertTrue(signalization.isDeactivated());
 
         signalization.activate("333");
-        signalization.deactivate("332");
+        signalization.deactivate("111");
         assertTrue(signalization.isAlarmed());
     }
 

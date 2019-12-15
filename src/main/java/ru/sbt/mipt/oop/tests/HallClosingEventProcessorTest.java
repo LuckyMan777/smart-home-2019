@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.devices.Door;
 import ru.sbt.mipt.oop.devices.Light;
+import ru.sbt.mipt.oop.eventprocessors.HallClosingEventProcessor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,7 @@ class HallClosingEventProcessorTest {
     private final List<Integer> lightNums = Arrays.asList(1, 2, 3, 4, 5, 6);
     private final int hallDoorNum = 2;
     private SmartHome smartHome;
+    private HallClosingEventProcessor hallClosingEventProcessor;
 
     @BeforeEach
     void setUp() {
@@ -29,17 +31,16 @@ class HallClosingEventProcessorTest {
                 "hall");
 
         smartHome = new SmartHome(Arrays.asList(bedroom, hall));
+        hallClosingEventProcessor = new HallClosingEventProcessor();
     }
 
     @Test
     void checkLightsOffAfterHallClosingEventProcess() {
-        SmartHomeProcessing smartHomeProcessing = new SmartHomeProcessing(smartHome, null);
-        smartHomeProcessing.processSensorEvent(
-                new SensorEvent(SensorEventType.DOOR_CLOSED, Integer.toString(hallDoorNum)));
+        hallClosingEventProcessor.processSensorEvent(
+                new SensorEvent(SensorEventType.DOOR_CLOSED, Integer.toString(hallDoorNum)),
+                smartHome);
 
-        for (Integer lightNotInHallNum : lightNums) {
-            TestUtils.checkLightOnOff(smartHome, Integer.toString(lightNotInHallNum), false);
-        }
+        smartHome.execute(new TestUtils.CheckAllLightStates(false));
     }
 
 }
