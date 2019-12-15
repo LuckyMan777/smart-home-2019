@@ -1,11 +1,11 @@
 package ru.sbt.mipt.oop.remotecontrol;
 
+import rc.RemoteControl;
 import ru.sbt.mipt.oop.remotecontrol.commands.Command;
-import ru.sbt.mipt.oop.remotecontrol.commands.SmartHomeCommand;
 
 import java.util.*;
 
-public class SmartHomeRemoteControl implements rc.RemoteControl {
+public class SmartHomeRemoteControl implements RemoteControl {
 
     private Set<String> buttonCodes = new HashSet<>(Arrays.asList("1", "2", "3", "4", "A", "B", "C", "D"));
     private Map<String, Command> map = new HashMap<>();
@@ -20,8 +20,8 @@ public class SmartHomeRemoteControl implements rc.RemoteControl {
         }
     }
 
-    public Command getCommand(String buttonCode){
-        if (!checkButtonCode(buttonCode)){
+    public Command getCommand(String buttonCode) {
+        if (!checkButtonCode(buttonCode)) {
             return null;
         }
         return map.get(buttonCode);
